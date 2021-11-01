@@ -1,3 +1,3 @@
 # room-reservation
-Streamlit
-FastApi
+- Streamlit
+- FastAPI
