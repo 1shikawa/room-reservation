@@ -2,3 +2,5 @@
 - Streamlit
 - FastAPI
 - SQLAlchemy
+- Nginx
+- PostgreSQL
