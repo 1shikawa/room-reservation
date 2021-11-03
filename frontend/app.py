@@ -8,6 +8,7 @@ import streamlit as st
 
 page = st.sidebar.selectbox("Choose your page", ["users", "rooms", "bookings"])
 
+API_URL = 'http://api:8000'
 
 # if page == 'users':
 #     st.title('APIテスト画面（ユーザー）')
@@ -104,7 +105,8 @@ if page == "users":
         st.write("## 送信データ")
         st.json(data)
         st.write("## レスポンス結果")
-        url = "http://127.0.0.1:8000/users/"
+        # url = "http://127.0.0.1:8000/users/"
+        url = f"{API_URL}/users"
         res = requests.post(url, data=json.dumps(data))
         st.write(res.status_code)
         if res.status_code == 200:
@@ -129,7 +131,7 @@ elif page == "rooms":
         st.write("## 送信データ")
         st.json(data)
         st.write("## レスポンス結果")
-        url = "http://127.0.0.1:8000/rooms"
+        url = f"{API_URL}/rooms"
         res = requests.post(url, data=json.dumps(data))
         st.write(res.status_code)
         if res.status_code == 200:
@@ -140,7 +142,7 @@ elif page == "rooms":
 elif page == "bookings":
     st.title("会議室予約画面")
     # ユーザー一覧
-    url_users = "http://127.0.0.1:8000/users"
+    url_users = f"{API_URL}/users"
     res = requests.get(url_users)
     users = res.json()
     # st.json(users)
@@ -150,7 +152,7 @@ elif page == "bookings":
     # st.write(users_dict)
 
     # 会議室一覧
-    url_rooms = "http://127.0.0.1:8000/rooms"
+    url_rooms = f"{API_URL}/rooms"
     res = requests.get(url_rooms)
     rooms = res.json()
     # st.json(rooms)
@@ -167,7 +169,7 @@ elif page == "bookings":
     df_rooms.columns = ["会議室名", "定員", "会議室ID"]
     st.table(df_rooms)
 
-    url_bookings = "http://127.0.0.1:8000/bookings"
+    url_bookings = f"{API_URL}/bookings"
     res = requests.get(url_bookings)
     bookings = res.json()
 
@@ -260,7 +262,7 @@ elif page == "bookings":
             st.write("## 送信データ")
             st.json(data)
             st.write("## レスポンス結果")
-            url = "http://127.0.0.1:8000/bookings"
+            url = f"{API_URL}/bookings"
             res = requests.post(url, data=json.dumps(data))
             st.write(res.status_code)
             if res.status_code == 200:

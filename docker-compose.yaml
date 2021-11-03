@@ -1,6 +1,45 @@
 version: '3.8'
 
 services:
+  web:
+    container_name: web
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+  app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+        - '8080:8080'
+    container_name: streamlit_app
+    volumes:
+      - './frontend:/app'
+    depends_on:
+      - api
+      - db
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+        - '8000:8000'
+    container_name: fastapi
+    # command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    depends_on:
+      - db
+    volumes:
+      - './backend:/app'
+
   db:
     image: postgres:13.3
     container_name: postgres-db

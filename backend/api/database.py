@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 DATABASE = 'postgresql'
 USER = 'postgres'
 PASSWORD = 'postgres'
-HOST = 'localhost'
+HOST = 'db'
 PORT = '5432'
 DB_NAME = 'room_reservation'
 
