@@ -10,14 +10,24 @@ class BookingCreate(BaseModel):
     start_datetime: datetime.datetime
     end_datetime: datetime.datetime
 
+
+class BookingDelete(BookingCreate):
+    booking_id: int
+
+
 class Booking(BookingCreate):
     booking_id: int
 
     class Config:
         orm_mode = True
 
+
 class UserCreate(BaseModel):
     username: str = Field(max_length=12)
+
+
+class UserDelete(BaseModel):
+    user_id: int
 
 
 class User(UserCreate):
@@ -30,6 +40,10 @@ class User(UserCreate):
 class RoomCreate(BaseModel):
     room_name: str = Field(max_length=12)
     capacity: int
+
+
+class RoomDelete(BaseModel):
+    room_id: int
 
 
 class Room(RoomCreate):

@@ -1,7 +1,13 @@
+from typing import List
+
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from . import models, schemas
+
+
+def get_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.user_id == user_id).first()
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
@@ -57,3 +63,28 @@ def create_booking(db: Session, booking: schemas.Booking):
 
     else:
         raise HTTPException(status_code=404, detail="Already booked")
+
+
+def delete_user(db: Session, user: schemas.UserDelete):
+    db_user = db.query(models.User).filter(models.User.user_id == user.user_id).first()
+    db.delete(db_user)
+    db.commit()
+    return db_user
+
+
+def delete_room(db: Session, room: schemas.RoomDelete):
+    db_room = db.query(models.Room).filter(models.Room.room_id == room.room_id).first()
+    db.delete(db_room)
+    db.commit()
+    return db_room
+
+
+def delete_booking(db: Session, booking: schemas.BookingDelete):
+    db_booking = (
+        db.query(models.Booking)
+        .filter(models.Booking.booking_id == booking.booking_id)
+        .first()
+    )
+    db.delete(db_booking)
+    db.commit()
+    return db_booking
