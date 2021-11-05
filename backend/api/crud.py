@@ -88,3 +88,18 @@ def delete_booking(db: Session, booking: schemas.BookingDelete):
     db.delete(db_booking)
     db.commit()
     return db_booking
+
+
+def update_user(db: Session, user: schemas.UserUpdate):
+    db_user = db.query(models.User).filter(models.User.user_id == user.user_id).first()
+    db_user.username = user.username
+    db.commit()
+    return db_user
+
+
+def update_room(db: Session, room: schemas.RoomUpdate):
+    db_room = db.query(models.Room).filter(models.Room.room_id == room.room_id).first()
+    db_room.room_name = room.room_name
+    db_room.capacity = room.capacity
+    db.commit()
+    return db_room

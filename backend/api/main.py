@@ -92,3 +92,11 @@ async def delete_room(room: schemas.RoomDelete, db: Session = Depends(get_db)):
 @app.delete("/bookings/delete", response_model=schemas.Booking)
 async def delete_booking(booking: schemas.BookingDelete, db: Session = Depends(get_db)):
     return crud.delete_booking(db, booking)
+
+@app.post("/users/update", response_model=schemas.User)
+async def update_user(user: schemas.UserUpdate, db: Session = Depends(get_db)):
+    return crud.update_user(db, user)
+
+@app.post("/rooms/update", response_model=schemas.Room)
+async def update_rooms(room: schemas.RoomUpdate, db: Session = Depends(get_db)):
+    return crud.update_room(db, room)
